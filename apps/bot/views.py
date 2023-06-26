@@ -25,6 +25,7 @@ def handle_telegram_webhook(request):
         elif update.callback_query.message.chat.type == 'supergroup':
             dp = setup_group(token)
             dp.process_update(update)
+
     return JsonResponse({'status': 'ok'})
 
 
