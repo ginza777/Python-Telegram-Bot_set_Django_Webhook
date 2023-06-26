@@ -28,7 +28,6 @@ def get_language(update: Update, context: CallbackContext, tg_user: models.Teleg
     tg_user.save()
     activate(tg_user.language)
     query.edit_message_text(str(_("Ismingizni kiriting: ")))
-
     return state.GET_NAME
 
 @get_member
@@ -38,3 +37,53 @@ def get_name(update: Update, context: CallbackContext, tg_user: models.TelegramP
     update.message.reply_text(str(_("enter your phone number")), reply_markup=get_phone_number_button())
 
     return state.GET_NAME
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#commands functions
+def help_command(update: Update, context: CallbackContext):
+    update.message.reply_text('Help!')
+
+def topusers_command(update: Update, context: CallbackContext):
+    update.message.reply_text('Top users!')
+
+def adminpanel_command(update: Update, context: CallbackContext):
+    update.message.reply_text('Admin panel!')
+
+def contact_admin_command(update: Update, context: CallbackContext):
+    update.message.reply_text('Contact admin!')
+
+def settings_command(update: Update, context: CallbackContext):
+    update.message.reply_text('Settings!')
+
+def lang_command(update: Update, context: CallbackContext):
+    update.message.reply_text('Language!')
+
+def my_groups_command(update: Update, context: CallbackContext):
+    update.message.reply_text('My groups!')
+
+def groups_statistic_command(update: Update, context: CallbackContext):
+    update.message.reply_text('Groups statistic!')
+
+def send_ads_command(update: Update, context: CallbackContext):
+    update.message.reply_text('Send ads!')
+
+def add_admin_command(update: Update, context: CallbackContext):
+    update.message.reply_text('Add admin!')
