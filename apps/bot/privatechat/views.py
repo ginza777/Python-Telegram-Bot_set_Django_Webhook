@@ -13,7 +13,6 @@ from django.utils.translation import gettext_lazy as _, activate
 
 
 
-
 @get_member
 def start(update: Update, context: CallbackContext, tg_user: models.TelegramProfile):
     """Send a message when the command /start is issued."""
@@ -28,6 +27,14 @@ def get_language(update: Update, context: CallbackContext, tg_user: models.Teleg
     context.user_data['language'] = query.data
     tg_user.save()
     activate(tg_user.language)
-    query.edit_message_text(str(_("who are you?")), reply_markup=get_position_button())
+    query.edit_message_text(str(_("Ismingizni kiriting: ")))
 
-    return state.ANOTHER
+    return state.GET_NAME
+
+@get_member
+def get_name(update: Update, context: CallbackContext, tg_user: models.TelegramProfile):
+    tg_user.name = update.message.text
+    tg_user.save()
+    update.message.reply_text(str(_("enter your phone number")), reply_markup=get_phone_number_button())
+
+    return state.GET_NAME

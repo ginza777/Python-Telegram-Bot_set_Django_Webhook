@@ -28,3 +28,18 @@ def get_position_button():
 #visitor
 
 
+def qarz_berish():
+    buttons = [
+        [
+            InlineKeyboardButton(str(_("qarz_berish")), callback_data='qarz'),
+        ]
+    ]
+    return InlineKeyboardMarkup(buttons)
+
+
+
+
+
+#visitor
+
+

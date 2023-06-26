@@ -5,6 +5,8 @@ from telegram import Update, Bot
 from telegram.ext import Dispatcher, CommandHandler, ConversationHandler, PicklePersistence, CallbackQueryHandler, \
     MessageHandler, Filters
 from .views import *
+
+
 def setup_private(token):
     bot = Bot(token=token)
     queue = Queue()
@@ -19,18 +21,13 @@ def setup_private(token):
                     )
 
     states = {
-        # you can add more states here
+
+        state.GET_LANGUAGE: [CallbackQueryHandler(get_language, pattern='uz|ru|en'), ],
+        state.GET_NAME: [MessageHandler(Filters.text, get_name), ],
 
     }
 
-
-
-
-
-
     entry_points = [CommandHandler('start', start), ]
-
-
     fallbacks = [
         MessageHandler(Filters.all, start),
     ]

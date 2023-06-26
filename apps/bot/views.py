@@ -1,9 +1,9 @@
 import json
 from django.http import JsonResponse
-from .telegrambot import *
+from telegram import Bot, Update
 from apps.bot.privatechat.setup import setup_private
 from apps.bot.supergroup.setup import setup_group
-
+from django.conf import settings
 
 
 def handle_telegram_webhook(request):
@@ -12,16 +12,19 @@ def handle_telegram_webhook(request):
     update = Update.de_json(json.loads(request.body.decode('utf-8')), bot)
     try:
         if update.message.chat.type == 'private':
-            print('private')
             dp = setup_private(token)
             dp.process_update(update)
         elif update.message.chat.type == 'supergroup':
-            print('supergroup')
             dp = setup_group(token)
             dp.process_update(update)
 
     except Exception as e:
-        print('error:-----', e)
+        if update.callback_query.message.chat.type == 'private':
+            dp = setup_private(token)
+            dp.process_update(update)
+        elif update.callback_query.message.chat.type == 'supergroup':
+            dp = setup_group(token)
+            dp.process_update(update)
     return JsonResponse({'status': 'ok'})
 
 

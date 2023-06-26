@@ -5,6 +5,7 @@ from telegram import Update, Bot
 from telegram.ext import Dispatcher, CommandHandler, ConversationHandler, PicklePersistence, CallbackQueryHandler, \
     MessageHandler, Filters
 from .views import *
+from .state import state
 def setup_group(token):
     bot = Bot(token=token)
     queue = Queue()
@@ -19,6 +20,10 @@ def setup_group(token):
                     )
 
     states = {
+        state.ANOTHER: [
+            CallbackQueryHandler(another),
+            CommandHandler('start', start),
+            ],
         # you can add more states here
 
     }
